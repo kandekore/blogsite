@@ -1,32 +1,43 @@
 const sequelize = require("../config/connection");
-const { User, Post, Categories, Comments } = require("../models");
+// const { User, Post, Categories, Comments } = require("../models");
 
-const userData = require("./userData.json");
-const postData = require("./postData.json");
-const catData = require("./catData.json");
-const comData = require("./comData.json");
+const seedUsers = require("./userData");
+const seedPosts = require("./postData");
+const seedCategories = require("./catData");
+const seedComments = require("./comData");
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
+  console.log("\n----- DATABASE SYNCED -----\n");
+  await seedUsers();
+  console.log("\n----- USERS SEEDED -----\n");
+  await seedCategories();
+  console.log("\n----- CATEGORIES SEEDED -----\n");
 
-  const users = await User.bulkCreate(userData, {
-    individualHooks: true,
-    returning: true,
-  });
+  await seedPosts();
+  console.log("\n----- POSTS SEEDED -----\n");
 
-  const post = await Post.bulkCreate(postData, {
-    individualHooks: true,
-    returning: true,
-  });
-  const comment = await Comments.bulkCreate(comData, {
-    individualHooks: true,
-    returning: true,
-  });
+  await seedComments();
+  console.log("\n----- COMMENTS SEEDED -----\n");
 
-  const categories = await Categories.bulkCreate(catData, {
-    individualHooks: true,
-    returning: true,
-  });
+  // const users = await User.bulkCreate(userData, {
+  //   individualHooks: true,
+  //   returning: true,
+  // });
+
+  // const post = await Post.bulkCreate(postData, {
+  //   individualHooks: true,
+  //   returning: true,
+  // });
+  // const comment = await Comments.bulkCreate(comData, {
+  //   individualHooks: true,
+  //   returning: true,
+  // });
+
+  // const categories = await Categories.bulkCreate(catData, {
+  //   individualHooks: true,
+  //   returning: true,
+  // });
 
   process.exit(0);
 };

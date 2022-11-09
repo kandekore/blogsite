@@ -35,6 +35,21 @@ User.init(
         len: [8],
       },
     },
+    comment_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "comments",
+        key: "id",
+      },
+    },
+    post_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "post",
+        key: "id",
+      },
+    },
   },
   {
     hooks: {
