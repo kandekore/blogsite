@@ -48,6 +48,21 @@ router.get("/comments", async (req, res) => {
     res.status(500).json(err);
   }
 });
+// router.post("/comments", async (req, res) => {
+//   /*
+//    { "comment": "Posted Comment Test",
+
+//         "user_id": 1,
+//         "post_id": 1}
+//         */
+//   try {
+//     const newComment = await Comments.create(req.body);
+//     console.log({ newComment });
+//     res.status(200).json(newComment);
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// });
 router.get("/users", async (req, res) => {
   try {
     let userData = await User.findAll({ include: [Comments, Post] });
@@ -65,7 +80,7 @@ router.get("/categories", async (req, res) => {
     let cats = catData.map((cdata) => cdata.get({ plain: true }));
 
     res.render("categories", { cats });
-    console.log(...categories);
+    // console.log(...categories);
   } catch (err) {
     res.status(500).json(err);
   }
