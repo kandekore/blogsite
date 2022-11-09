@@ -3,7 +3,7 @@ const sequelize = require("../config/connection");
 
 class Categories extends Model {}
 
-Post.init(
+Categories.init(
   {
     id: {
       type: DataTypes.INTEGER,

@@ -33,6 +33,7 @@ Post.init(
     },
     cat_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "categories",
         key: "id",
