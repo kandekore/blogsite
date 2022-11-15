@@ -1,0 +1,14 @@
+<h1>Comments d</h1>
+{{#each comments}}
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="..." />
+    <div class="card-body">
+
+      <h2 class="card-title">{{comment}} </h2>
+      <h5 class="card-title">user: {{user.name}} </h5>
+      <h5 class="card-title">Post: {{post.title}} </h5>
+      <p class="card-text">{{date}}</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+{{/each}}

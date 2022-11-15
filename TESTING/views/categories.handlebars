@@ -1,0 +1,13 @@
+<h1>Cats</h1>
+{{#each cats}}
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="..." />
+    <div class="card-body">
+
+      <h2 class="card-title">{{name}} </h2>
+      {{#each posts}}
+        <p class="card-text">{{title}}</p>{{/each}}
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+{{/each}}

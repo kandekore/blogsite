@@ -1,0 +1,35 @@
+<form
+  {{!-- method="post" --}}
+  width="100%"
+  {{!-- action="http://localhost:3001" --}}
+  class="submitpost"
+><label><h3>Post Title</h3></label><br />
+  <input class="post-title-input" type="text" width="300px" id="ptinput" /><br
+  /><label><h3>Post Content</h3></label><br />
+  <textarea
+    class="post-title-input"
+    type="text"
+    cols="40"
+    rows="5"
+    id="pstcnt"
+  ></textarea><br /><button
+    type="submit"
+    class="btn btn-primary"
+  >Post</button></form>
+{{#each posts}}
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="..." />
+    <div class="card-body">
+
+      <h2 class="card-title">{{title}} </h2>
+      <h3  class="card-title">User: {{user.name}} </h3>
+<h5  class="card-title">Category: {{category.name}} </h5>
+      <p class="card-text">{{content}}</p>
+      <p class="card-text">Date: {{date}}</p>{{#each comments}}
+      <p class="card-text">{{comment}}123{{/each}}</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+{{/each}}
+
+<script src="/js/index.js"></script>

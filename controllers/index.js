@@ -20,22 +20,22 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.get("/posts", async (req, res) => {
-  try {
-    let postData = await Post.findAll({
-      include: [Comments, User, Categories],
-    });
-    let posts = postData.map((data) => data.get({ plain: true }));
-    // let commentData = await Comments.findOne(where);
-    // let comments = commentData.map((cdata) => cdata.get({ plain: true }));
+// router.get("/posts", async (req, res) => {
+//   try {
+//     let postData = await Post.findAll({
+//       include: [Comments, User, Categories],
+//     });
+//     let posts = postData.map((data) => data.get({ plain: true }));
+//     // let commentData = await Comments.findOne(where);
+//     // let comments = commentData.map((cdata) => cdata.get({ plain: true }));
 
-    res.render("post", { posts });
-    console.log(...posts);
-    console.log(...posts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//     res.render("post", { posts });
+//     console.log(...posts);
+//     console.log(...posts);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 router.get("/comments", async (req, res) => {
   try {
@@ -48,21 +48,21 @@ router.get("/comments", async (req, res) => {
     res.status(500).json(err);
   }
 });
-// router.post("/comments", async (req, res) => {
-//   /*
-//    { "comment": "Posted Comment Test",
+router.post("/comments", async (req, res) => {
+  /*
+   { "comment": "Posted Comment Test",
 
-//         "user_id": 1,
-//         "post_id": 1}
-//         */
-//   try {
-//     const newComment = await Comments.create(req.body);
-//     console.log({ newComment });
-//     res.status(200).json(newComment);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+        "user_id": 1,
+        "post_id": 1}
+        */
+  try {
+    const newComment = await Comments.create(req.body);
+    console.log({ newComment });
+    res.status(200).json(newComment);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 router.get("/users", async (req, res) => {
   try {
     let userData = await User.findAll({ include: [Comments, Post] });
@@ -81,6 +81,50 @@ router.get("/categories", async (req, res) => {
 
     res.render("categories", { cats });
     // console.log(...categories);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/posts", async (req, res) => {
+  try {
+    let postData = await Post.findAll({
+      include: [Comments, User, Categories],
+    });
+    let posts = postData.map((data) => data.get({ plain: true }));
+    // let commentData = await Comments.findOne(where);
+    // let comments = commentData.map((cdata) => cdata.get({ plain: true }));
+
+    res.render("post", { posts });
+    console.log(...posts);
+    console.log(...posts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+router.get("/posts/:id", async (req, res) => {
+  try {
+    const postData = await Post.findOne(
+      {
+        where: {
+          id: req.params.id,
+        },
+
+        include: [Comments],
+      },
+      {
+        allowedProtoMethods: {
+          trim: true,
+        },
+      }
+    );
+    if (!postData) {
+      res.status(404).json({ message: "No booking found with this id!" });
+      return;
+    }
+    console.log(postData.dataValues);
+    // res.render("post", { postData });
+    res.status(200).render("singlepost", postData.dataValues);
   } catch (err) {
     res.status(500).json(err);
   }
