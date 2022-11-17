@@ -78,6 +78,7 @@ router.post("/comments", withAuth, async (req, res) => {
     const newComment = await Comments.create(req.body);
     console.log({ newComment });
     res.status(200).json(newComment);
+    location.reload();
   } catch (err) {
     res.status(400).json(err);
   }

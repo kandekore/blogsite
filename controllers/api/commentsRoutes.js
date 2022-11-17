@@ -20,8 +20,10 @@ router.post("/", withAuth, async (req, res) => {
         */
   try {
     const newComment = await Comments.create(req.body);
-    console.log(req.body);
+    // console.log("content", req.body);
+
     res.status(200).json(newComment);
+    // location.reload();
   } catch (err) {
     res.status(400).json(err);
   }
