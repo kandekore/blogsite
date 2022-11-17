@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SCA Rental</title>
+    <title>Tech Blog</title>
      {{!-- <link rel="stylesheet" href="css/styles.css" /> --}}
      <style>.header {
   background: green !important;
@@ -261,17 +261,46 @@ input.hidden {
     {{!-- <link rel="stylesheet" href="/resources/demos/style.css" /> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script>
+    {{!-- <script>
       $( function() { $( "#datepicker" ).datepicker(); } ); $( function() { $(
       "#datepicker1" ).datepicker(); } );
-    </script>
+    </script> --}}
 
   </head>
 
   <body>
     <nav class="navbar header fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">SCA Car Rental</a>
+          <a class="navbar-brand" href="/">Tech Blog</a>
+        {{#if logged_in}}
+          <div class="button" style="align-items:flex-end"><button id="logout">Logout</button></div>
+        {{else}}
+          <div class="button" style="align-items:flex-end"><button id="login"><a href="/login" style="text-decoration: none; color:black">Login</a></button></div>
+        {{/if}}
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+        >
+          
+        </button>
+      <ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Active</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Link</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled">Disabled</a>
+  </li>
+</ul>
+      {{!-- <div class="container-fluid">
+        <a class="navbar-brand" href="/">Tech Blog</a>
         {{#if logged_in}}
           <div class="button" style="align-items:flex-end"><button id="logout">Logout</button></div>
         {{else}}
@@ -357,7 +386,7 @@ input.hidden {
             </form>
           </div>
         </div>
-      </div>
+      </div> --}}
     </nav>
     <header class="display-flex justify-space-between align-center p-2">
       <h1>

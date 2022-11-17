@@ -2,7 +2,7 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
 const { Post, Comments, User, Categories } = require("../../models/");
-
+const withAuth = require("../../utils/auth");
 router.get("/", async (req, res) => {
   try {
     const allPosts = await Post.findAll({
@@ -48,7 +48,7 @@ router.get("/posts", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", withAuth, async (req, res) => {
   try {
     const postData = await Post.destroy({
       where: {
@@ -66,7 +66,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk({
       where: {

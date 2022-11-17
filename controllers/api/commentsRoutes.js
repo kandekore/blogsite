@@ -2,7 +2,7 @@ const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../../config/connection");
 const router = require("express").Router();
 const { Post, Comments, User } = require("../../models/");
-
+const withAuth = require("../../utils/auth");
 router.get("/", async (req, res) => {
   try {
     const allComments = await Comments.findAll({ include: [Post, User] });
@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     res.status(400).json(err);
   }
 });
-router.post("/", async (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   /* 
    { "comment": "Posted Comment Test",
        

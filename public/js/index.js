@@ -18,7 +18,7 @@ const newCommentHandler = async (event) => {
     });
 
     console.log(responseCom);
-
+    console.log(req.session.logged_in);
     if (responseCom.ok) {
       //   res.status(200).json(response);
       // window.location.href = "/";
@@ -44,8 +44,8 @@ const newPostHandler = async (event) => {
       },
     });
 
-    console.log(response);
-
+    console.log("r1", response);
+    console.log("r1", req.session.logged_in);
     if (response.ok) {
       //   res.status(200).json(response);
       window.location.href = "/";
