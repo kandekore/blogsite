@@ -1,13 +1,23 @@
-<h1>Cats</h1>
-{{#each cats}}
-  <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="..." />
-    <div class="card-body">
+<div class="oner"><h1>Categories</h1></div>
 
-      <h2 class="card-title">{{name}} </h2>
-      {{#each posts}}
-        <p class="card-text">{{title}}</p>{{/each}}
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+<div class="card" style="width: 80%">
+
+  <div class="card-body">
+
+    {{#each cats}}<p><a href="/postsbycat/{{id}}">{{catname}}</a></p>{{/each}}
+
   </div>
-{{/each}}
+</div>
+<form
+    width="100%"
+    class="newcat"
+    id="newcat"
+    onsubmit="setTimeout(function(){window.location.reload();},10);"
+  ><label><h3>Add a category</h3></label><br />
+    <input class="post-title-input" type="text" width="300px" id="category" /><br
+  <br /><button
+      type="submit"
+      class="btn btn-primary"
+    >Submit</button></form>
+
+    <script src="/js/category.js"></script> 

@@ -4,14 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tech Blog</title>
-     {{!-- <link rel="stylesheet" href="css/styles.css" /> --}}
-     <style>.header {
+     <link rel="stylesheet" href="css/style.css" />
+     <style>button.btn.btn-primary.edt {
+    float: right;
+    background: green;
+}
+button.btn.btn-primary.dlt {
+    float: left;
+    background: red;
+}
+.header {
   background: #003366 !important;
 }
 a.navbar-brand {
   color: #fff !important;
+  font-size: 35px;
+    font-weight: 600;
+    text-shadow: 2px 2px red;
+    margin-left: 20px;
 }
-
+a.nav-link {
+    color: #fff;
+}
 .flex-container {
   display: flex;
   flex-direction: row;
@@ -53,14 +67,30 @@ p.slogan {
   height: 175px;
 }
 
-
-#logout,
-#login {
-  float: right;
+label h3 {
+    padding-top: 10px;
+    font-size: 20px!important;
+    text-shadow: 1px 1px red;
+    font-weight: 600;
+    color: #003366;
 }
-.button {
-  align-self: flex-end;
-  float: right;
+
+button#login, button#logout {
+    margin-right: 20px;
+}
+
+h2.card-title {
+    font-weight: 600;
+    color: #003366;
+    text-align: center;
+    text-shadow: 1px 1px red;
+}
+
+h2.card-title:hover {
+    font-weight: 600;
+    color: green;
+    text-align: center;
+    text-shadow: 1px 1px red;
 }
 
 .row {
@@ -152,10 +182,9 @@ button.btn.btn-primary {
   align-items: center;
   appearance: none;
   background-color: #fff;
-  border-radius: 24px;
+ /* border-radius: 24px;*/
   border-style: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
-    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+  box-shadow: 1px 1px red;
   box-sizing: border-box;
 
   cursor: pointer;
@@ -195,7 +224,8 @@ button.btn.btn-primary {
 }
 
 #logout {
-  background-color: #003300;
+  background-color: #626060;
+  ;
   color: #fff;
 }
 
@@ -215,26 +245,8 @@ button.btn.btn-primary {
   border: 2px solid #4285f4;
 }
 
-.button {
-  margin-left: 700px;
-}
 
-@media screen and (max-width: 998px) {
-  .button {
-    margin-left: 400px;
-  }
-}
-@media screen and (max-width: 798px) {
-  .button {
-    margin-left: 200px;
-  }
-}
 
-@media screen and (max-width: 390px) {
-  .button {
-    margin-left: 20px;
-  }
-}
 .oner {
     width: 100%;
 }
@@ -245,6 +257,25 @@ input.hidden {
     display: none;
 }
 
+h3 {
+  padding-top: 10px;
+}
+.comments {
+  margin-top: 20px;
+}
+
+input#pstid {
+  display: none;
+}
+
+.commentform {
+  padding: 20px;
+}
+input#pstid {
+  display: none !important;
+}
+
+
 </style>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -252,13 +283,13 @@ input.hidden {
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
-    <link
+    {{!-- <link
       rel="stylesheet"
       href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
-    />
+    /> --}}
     {{!-- <link rel="stylesheet" href="/resources/demos/style.css" /> --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    {{!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> --}}
     {{!-- <script>
       $( function() { $( "#datepicker" ).datepicker(); } ); $( function() { $(
       "#datepicker1" ).datepicker(); } );
@@ -269,33 +300,23 @@ input.hidden {
   <body>
     <nav class="navbar header fixed-top">
           <a class="navbar-brand" href="/">Tech Blog</a>
-        {{#if logged_in}}
-          <div class="button" style="align-items:flex-end"><button id="logout">Logout</button></div>
-        {{else}}
-          <div class="button" style="align-items:flex-end"><button id="login"><a href="/login" style="text-decoration: none; color:black">Login</a></button></div>
-        {{/if}}
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-        >
-          
-        </button>
+       
       <ul class="nav justify-content-center">
+  
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
+    <a class="nav-link" href="/">Homepage</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" href="/profile">Dashboard</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
+    <li class="nav-item">
+    <a class="nav-link" href="/categories">Categories</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link disabled">Disabled</a>
-  </li>
+  <li>      {{#if logged_in}}
+         <button id="logout">Logout</button>       {{else}}
+          <button id="login"><a href="/login" style="text-decoration: none; color:black">Login</a></button>
+        {{/if}}</li>
+  
 </ul>
       {{!-- <div class="container-fluid">
         <a class="navbar-brand" href="/">Tech Blog</a>
@@ -385,6 +406,8 @@ input.hidden {
           </div>
         </div>
       </div> --}}
+ 
+
     </nav>
     <header class="display-flex justify-space-between align-center p-2">
       <h1>
@@ -398,7 +421,7 @@ input.hidden {
 
     </footer>
 
-    <script src="/js/index.js"></script>
+    {{!-- <script src="/js/index.js"></script> --}}
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

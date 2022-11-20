@@ -1,0 +1,64 @@
+{{#each user}}<h1>Posts by {{name}}</h1>{{/each}}
+{{!-- {{#each posts}}
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="..." />
+    <div class="card-body">
+
+      <h2 class="card-title">{{title}} </h2>
+      <h3  class="card-title">User: {{user.name}} </h3>
+<h5  class="card-title">Category: {{category.name}} </h5>
+      <p class="card-text">{{content}}</p>
+      <p class="card-text">Date: {{date}}</p>{{#each comments}}
+      <p class="card-text">{{comment}}123{{/each}}</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+{{/each}} --}}
+
+{{#if posts.length}}
+  {{#each posts as |post|}}
+    <div class="card mb-3" style="width: 80%;">
+      <div class="row g-0">
+        {{! <div class="col-md-4">
+        <img src="..." class="img-fluid rounded-start" alt="..." />
+      </div> }}
+        <div class="col-md-12">
+          <div class="card-body">
+            <h2 class="card-title">{{post.title}} </h2>
+            <h3 class="card-title">User: {{user.name}} </h3>
+            <h5 class="card-title">Category: {{category.catname}} </h5>
+            <p class="card-text">{{content}}</p>
+            <ul class="list-group list-group-flush">
+              {{!-- {{#each comments}}
+              <li class="list-group-item">{{comment}}</li>
+            {{/each}} --}}
+
+            </ul>
+            <p class="card-text"><small class="text-muted">Date:
+                {{format_time date}}</small></p>
+          </div>
+          <h3>Leave a comment</h3>
+          <form width="100%" class="leavecomment" id="leavecomment">
+            <input
+              class="postid"
+              type="number"
+              width="300px"
+              id="pstid"
+              value="{{id}}"
+            />
+            <textarea
+              class="comments"
+              type="text"
+              cols="40"
+              rows="5"
+              id="comment"
+            ></textarea><br /><button
+              type="submit"
+              class="btn btn-primary"
+            >Post</button></form>
+        </div>
+      </div>
+    </div>{{/each}}
+{{/if}}
+{{! <script src="/js/index.js"></script> }}
+<script src="/js/profile.js"></script>

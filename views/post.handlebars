@@ -6,7 +6,7 @@
 
       <h2 class="card-title">{{title}} </h2>
       <h3  class="card-title">User: {{user.name}} </h3>
-<h5  class="card-title">Category: {{category.name}} </h5>
+<h5  class="card-title">Category: {{category.catname}} </h5>
       <p class="card-text">{{content}}</p>
       <p class="card-text">Date: {{date}}</p>{{#each comments}}
       <p class="card-text">{{comment}}123{{/each}}</p>
@@ -14,3 +14,5 @@
     </div>
   </div>
 {{/each}}
+
+<script src="/js/comment.js"></script>

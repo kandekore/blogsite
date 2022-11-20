@@ -1,1 +1,17 @@
+h3 {
+  padding-top: 10px;
+}
+.comments {
+  margin-top: 20px;
+}
 
+input#pstid {
+  display: none;
+}
+
+.commentform {
+  padding: 20px;
+}
+input#pstid {
+  display: none !important;
+}

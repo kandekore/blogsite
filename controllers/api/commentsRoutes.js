@@ -11,19 +11,26 @@ router.get("/", async (req, res) => {
     res.status(400).json(err);
   }
 });
-router.post("/", withAuth, async (req, res) => {
-  /* 
+router.post("/", async (req, res) => {
+  /*
    { "comment": "Posted Comment Test",
-       
+
         "user_id": 1,
         "post_id": 1}
         */
+  console.log({
+    ...req.body,
+    user_id: req.session.user_id,
+    user_name: req.session.user_name,
+  });
   try {
-    const newComment = await Comments.create(req.body);
-    // console.log("content", req.body);
+    const newComment = await Comments.create({
+      ...req.body,
+      user_id: req.session.user_id,
+      user_name: req.session.user_name,
+    });
 
     res.status(200).json(newComment);
-    // location.reload();
   } catch (err) {
     res.status(400).json(err);
   }

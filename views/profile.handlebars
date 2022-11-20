@@ -3,9 +3,29 @@
     <h2>Welcome, {{name}}!</h2>
   </div>
 </div>
+<form
+  width="100%"
+  class="submitpost"
+  onsubmit="setTimeout(function(){window.location.reload();},10);"
+><label><h3>Post Title</h3></label><br />
+  <input class="post-title-input" type="text" width="300px" id="ptinput" /><br
+  /><label><h3>Post Content</h3></label><br />
+  <textarea
+    class="post-title-input"
+    type="text"
+    cols="40"
+    rows="5"
+    id="pstcnt"
+  ></textarea><label for="category"><h3>Choose a Category:</h3></label>
 
-{{#if post.length}}
-  {{#each post as |posts|}}
+  <select name="category" id="cat">
+    {{#each categories}}<option value="{{id}}">{{catname}}</option>{{/each}}
+  </select><br /><button
+    type="submit"
+    class="btn btn-primary"
+  >Post</button></form>
+{{#if posts.length}}
+  {{#each posts as |post|}}
     <div class="card mb-3" style="width: 80%;">
       <div class="row g-0">
         {{! <div class="col-md-4">
@@ -13,41 +33,51 @@
       </div> }}
         <div class="col-md-12">
           <div class="card-body">
-            <h2 class="card-title">{{title}} </h2>
-            <h3 class="card-title">User: {{user.name}} </h3>
-            <h5 class="card-title">Category: {{category.name}} </h5>
+            <a href="/posts/{{id}}"><h2 class="card-title">{{title}} </h2></a>
             <p class="card-text">{{content}}</p>
-            <ul class="list-group list-group-flush">
-              {{!-- {{#each comments}}
-              <li class="list-group-item">{{comment}}</li>
-            {{/each}} --}}
+            <div class="meta"><h5 class="card-title left">User:
+                <a href="/postsbyuser/{{user.id}}">{{user.name}}</a>
+              </h5>
+              <h5 class="card-title right">Category:
+                <a href="/postsbycat/{{category.id}}">{{category.catname}}
+                </a></h5>
+              <p class="card-text"><small class="text-muted">Posted:
+                  {{format_time date}}</small></p></div>
+            <div class="comments">{{#if comments.length}}<h3
+                >Comments</h3>{{/if}}
+              <ul class="list-group list-group-flush">
 
-            </ul>
-            <p class="card-text"><small class="text-muted">Date:
-                {{date}}</small></p>
-          </div>
-          <h3>Leave a comment</h3>
-          <form width="100%" class="leavecomment" id="leavecomment">
-            <input
-              class="postid"
-              type="number"
-              width="300px"
-              id="pstid"
-              value="{{id}}"
-            />
-            <textarea
-              class="comments"
-              type="text"
-              cols="40"
-              rows="5"
-              id="comment"
-            ></textarea><br /><button
-              type="submit"
-              class="btn btn-primary"
-            >Post</button></form>
+                {{#each comments}}
+                  <li class="list-group-item">{{comment}}
+                    -
+                    {{user.name}}
+
+                  </li>
+                {{/each}}
+
+              </ul>
+
+            </div>
+            <form
+              width="20%"
+              class="deletebtn"
+              id="deletebtn"
+              onsubmit="setTimeout(function(){window.location.reload();},10);"
+            ><input
+                class="postid"
+                type="number"
+                width="300px"
+                id="pstid"
+                value="{{id}}"
+              /><button type="submit" class="btn btn-primary dlt">Delete post</button></form>
+            <form
+              width="20%"
+              class="editbtn"
+              id="editbtn"
+              onsubmit="setTimeout(function(){window.location.reload();},10);"
+            ><button type="submit" class="btn btn-primary edt">Edit post</button></form></div>
         </div>
-      </div>
-    </div>{{/each}}
+      </div></div>{{/each}}
 {{/if}}
-{{! <script src="/js/index.js"></script> }}
-<script src="/js/profile.js"></script>
+<script src="/js/post.js"></script>
+<script src="/js/delete.js"></script>

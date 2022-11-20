@@ -27,6 +27,13 @@ Comments.init(
         key: "id",
       },
     },
+    // user_name: {
+    //   type: DataTypes.STRING,
+    //   references: {
+    //     model: "user",
+    //     key: "name",
+    //   },
+    // },
     post_id: {
       type: DataTypes.INTEGER,
       references: {

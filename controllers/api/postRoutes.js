@@ -3,6 +3,7 @@ const sequelize = require("../../config/connection");
 const router = require("express").Router();
 const { Post, Comments, User, Categories } = require("../../models/");
 const withAuth = require("../../utils/auth");
+
 router.get("/", async (req, res) => {
   try {
     const allPosts = await Post.findAll({
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
     res.status(400).json(err);
   }
 });
-router.post("/", async (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   /* 
     
        { "title": "post route",
@@ -22,8 +23,17 @@ router.post("/", async (req, res) => {
         "user_id": 1,
         "cat_id": 1,}
         */
+  console.log({
+    ...req.body,
+    user_id: req.session.user_id,
+    // user_name: req.session.user_name,
+  });
   try {
-    const newPost = await Post.create(req.body);
+    const newPost = await Post.create({
+      ...req.body,
+      user_id: req.session.user_id,
+      // user_name: req.session.user_name,
+    });
     console.log(newPost);
     res.status(200).json(newPost);
   } catch (err) {
@@ -41,44 +51,48 @@ router.get("/posts", async (req, res) => {
     // let comments = commentData.map((cdata) => cdata.get({ plain: true }));
 
     res.render("post", { posts });
-    console.log(...posts);
+    console.log("userid", userData.id);
     console.log(...posts);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.delete("/:id", withAuth, async (req, res) => {
-  try {
-    const postData = await Post.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
-    if (!postData) {
-      res.status(404).json({ message: "No booking found with this id!" });
-      return;
-    }
+router.delete("/:id", async (req, res) => {
+  Post.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
 
-    res.status(200).json(postData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    .then((deletedPost) => {
+      res.json(deletedPost);
+    })
+    .catch((err) => res.json(err));
 });
 
-router.get("/:id", withAuth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const postData = await Post.findByPk({
-      where: {
-        id: req.params.id,
+    const postData = await Post.findOne(
+      {
+        where: {
+          id: req.params.id,
+        },
+
+        include: [Comments],
       },
-    });
+      {
+        allowedProtoMethods: {
+          trim: true,
+        },
+      }
+    );
     if (!postData) {
       res.status(404).json({ message: "No booking found with this id!" });
       return;
     }
 
-    res.status(200).json(postData);
+    res.status(200).json({ postData });
   } catch (err) {
     res.status(500).json(err);
   }

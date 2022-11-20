@@ -2,11 +2,11 @@ const { Categories } = require("../models");
 const catData = [
   {
     id: 1,
-    name: "Cat Test",
+    catname: "Cat Test",
   },
   {
     id: 2,
-    name: "Cat 2 Test",
+    catname: "Cat 2 Test",
   },
 ];
 

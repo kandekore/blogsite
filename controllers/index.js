@@ -1,136 +1,76 @@
 const router = require("express").Router();
 const apiRoutes = require("./api");
-// const postRoutes = require("./api/postRoutes");
-
 router.use("/api", apiRoutes);
-// router.use("/posts", postRoutes);
-
 const { User, Post, Categories, Comments } = require("../models");
 const withAuth = require("../utils/auth");
 const { findAll } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
+    let postData = await Post.findAll({
+      include: [User, Categories, Comments],
+    });
+
+    let posts = postData.map((data) => data.get({ plain: true }));
+    let cats = await Categories.findAll();
+    let categories = cats.map((cat) => cat.get({ plain: true }));
+    let coms = await Comments.findAll({ include: [User] });
+    let comments = coms.map((com) => com.get({ plain: true }));
     let userData = await User.findAll();
     let users = userData.map((user) => user.get({ plain: true }));
-    let postData = await Post.findAll({
-      include: [Comments, User, Categories],
-    });
-    let posts = postData.map((data) => data.get({ plain: true }));
+    let current = { idpst: req.session.user_id };
     res.render(
       "homepage",
 
-      { users, posts, logged_in: req.session.logged_in }
-      // { posts }
+      {
+        users,
+        posts,
+        categories,
+        comments,
+        current,
+        logged_in: req.session.logged_in,
+      }
     );
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get("/login", async (req, res) => {
-  try {
-    // const allUsers = await User.findAll({ include: [Comments, Post] });
-    // res.status(200).json(allUsers);
-    res.render("login");
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
-
-// router.get("/posts", async (req, res) => {
-//   try {
-//     let postData = await Post.findAll({
-//       include: [Comments, User, Categories],
-//     });
-//     let posts = postData.map((data) => data.get({ plain: true }));
-//     // let commentData = await Comments.findOne(where);
-//     // let comments = commentData.map((cdata) => cdata.get({ plain: true }));
-
-//     res.render("post", { posts });
-//     console.log(...posts);
-//     console.log(...posts);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-router.get("/comments", async (req, res) => {
-  try {
-    let commentData = await Comments.findAll({ include: [Post, User] });
-    let comments = commentData.map((cdata) => cdata.get({ plain: true }));
-
-    res.render("comments", { comments });
-    console.log(...comments);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-router.post("/comments", withAuth, async (req, res) => {
-  /*
-   { "comment": "Posted Comment Test",
-
-        "user_id": 1,
-        "post_id": 1}
-        */
-  console.log(req.body);
-  try {
-    const newComment = await Comments.create(req.body);
-    console.log({ newComment });
-    res.status(200).json(newComment);
-    location.reload();
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
-router.get("/users", async (req, res) => {
-  try {
-    let userData = await User.findAll({ include: [Comments, Post] });
-    let users = userData.map((udata) => udata.get({ plain: true }));
-
-    res.render("user", { users });
-    console.log(...users);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-// router.get("/categories", async (req, res) => {
-//   try {
-//     let catData = await Categories.findAll({ include: [Post] });
-//     let cats = catData.map((cdata) => cdata.get({ plain: true }));
-
-//     res.render("categories", { cats });
-//     // console.log(...categories);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-router.get("/posts", withAuth, async (req, res) => {
-  try {
-    let postData = await Post.findAll({
-      include: [Comments, User, Categories],
-    });
-    let posts = postData.map((data) => data.get({ plain: true }));
-    // let commentData = await Comments.findOne(where);
-    // let comments = commentData.map((cdata) => cdata.get({ plain: true }));
-
-    res.render("post", { posts });
-    console.log(...posts);
-    console.log(...posts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 router.get("/posts/:id", withAuth, async (req, res) => {
   try {
-    const postData = await Post.findOne(
+    let postData = await Post.findAll({
+      where: {
+        id: req.params.id,
+      },
+      include: [User, Categories, Comments],
+    });
+
+    let posts = postData.map((data) => data.get({ plain: true }));
+    let cats = await Categories.findAll();
+    let categories = cats.map((cat) => cat.get({ plain: true }));
+    let coms = await Comments.findAll({ include: [User] });
+    let comments = coms.map((com) => com.get({ plain: true }));
+    let userData = await User.findAll();
+    let users = userData.map((user) => user.get({ plain: true }));
+    let current = { idpst: req.session.user_id };
+
+    console.log("Comments123", ...comments);
+    console.log("post data", posts);
+
+    res.status(200).render("singlepost", { posts, comments });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/postsbyuser/:id", withAuth, async (req, res) => {
+  try {
+    let postData = await Post.findAll(
       {
         where: {
-          id: req.params.id,
+          user_id: req.params.id,
         },
-
-        include: [Comments],
+        include: [Comments, User, Categories],
       },
       {
         allowedProtoMethods: {
@@ -139,12 +79,57 @@ router.get("/posts/:id", withAuth, async (req, res) => {
       }
     );
     if (!postData) {
-      res.status(404).json({ message: "No booking found with this id!" });
+      res.status(404).json({ message: "No post found with this id!" });
       return;
     }
-    console.log(postData.dataValues);
-    // res.render("post", { postData });
-    res.status(200).render("singlepost", postData.dataValues);
+
+    let userData = await User.findAll({
+      where: {
+        id: req.params.id,
+      },
+    });
+    let posts = postData.map((post) => post.get({ plain: true }));
+    let user = userData.map((data) => data.get({ plain: true }));
+    console.log("usr", user);
+    console.log("posts", posts);
+
+    res.status(200).render("postbyuser", { posts, user });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get("/postsbycat/:id", withAuth, async (req, res) => {
+  try {
+    let postData = await Post.findAll(
+      {
+        where: {
+          cat_id: req.params.id,
+        },
+        include: [Comments, User, Categories],
+      },
+      {
+        allowedProtoMethods: {
+          trim: true,
+        },
+      }
+    );
+    if (!postData) {
+      res.status(404).json({ message: "No post found with this id!" });
+      return;
+    }
+
+    let userData = await User.findAll({
+      where: {
+        id: req.params.id,
+      },
+    });
+    let posts = postData.map((post) => post.get({ plain: true }));
+    let user = userData.map((data) => data.get({ plain: true }));
+    console.log("usr", user);
+    console.log("posts", posts);
+    // res.render("post", postData);
+    res.status(200).render("postbycat", { posts, user });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -159,10 +144,25 @@ router.get("/profile", withAuth, async (req, res) => {
       include: [{ model: Post }],
     });
 
+    let postData = await Post.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+      include: [Comments, User, Categories],
+    });
+    let posts = postData.map((data) => data.get({ plain: true }));
+
     const user = userData.get({ plain: true });
 
+    let coms = await Comments.findAll({ include: [User] });
+    let comments = coms.map((com) => com.get({ plain: true }));
+    let cats = await Categories.findAll();
+    let categories = cats.map((cat) => cat.get({ plain: true }));
     res.render("profile", {
       ...user,
+      posts,
+      comments,
+      categories,
       logged_in: true,
     });
   } catch (err) {
@@ -170,11 +170,27 @@ router.get("/profile", withAuth, async (req, res) => {
   }
 });
 
+router.get("/categories", withAuth, async (req, res) => {
+  try {
+    const allCat = await Categories.findAll();
+    let cats = allCat.map((data) => data.get({ plain: true }));
+    res.render("categories", { cats });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 router.get("/login", (req, res) => {
-  // If the user is already logged in, redirect the request to another route  //
-
   if (req.session.logged_in) {
-    res.redirect("/location");
+    res.redirect("/profile");
+    return;
+  }
+
+  res.render("login");
+});
+
+router.get("/categories", (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect("/login");
     return;
   }
 
