@@ -1,6 +1,6 @@
 <div class="row oner">
   <div class="oner">
-    <h2>Welcome, {{name}}!</h2>
+    <h2>Welcome {{name}}!</h2>
   </div>
 </div>
 <form
@@ -26,6 +26,8 @@
   >Post</button></form>
 {{#if posts.length}}
   {{#each posts as |post|}}
+    <!-- Button trigger modal -->
+
     <div class="card mb-3" style="width: 80%;">
       <div class="row g-0">
         {{! <div class="col-md-4">
@@ -69,15 +71,45 @@
                 width="300px"
                 id="pstid"
                 value="{{id}}"
-              /><button type="submit" class="btn btn-primary dlt">Delete post</button></form>
-            <form
+              /><button type="submit" class="btn btn-primary dlt">Delete post</button></form><a
+              href="/edit/{{id}}"
+            ><button type="submit" class="btn btn-primary edit">edit post</button></a>
+            {{!-- <form
               width="20%"
               class="editbtn"
               id="editbtn"
-              onsubmit="setTimeout(function(){window.location.reload();},10);"
-            ><button type="submit" class="btn btn-primary edt">Edit post</button></form></div>
+              {{! onsubmit="setTimeout(function(){window.location.reload();},10);" }}
+            ><button
+                type="submit"
+                class="btn btn-primary edt"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >Edit post</button></form> --}}
+            {{! <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Launch demo modal
+            </button> }}
+          </div>
         </div>
       </div></div>{{/each}}
 {{/if}}
+
+<!-- Button trigger modal -->
+{{! <button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Launch demo modal
+</button> }}
+
+<!-- Modal -->
+
 <script src="/js/post.js"></script>
 <script src="/js/delete.js"></script>
+<script src="/js/index.js"></script>

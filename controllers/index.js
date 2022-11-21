@@ -62,6 +62,32 @@ router.get("/posts/:id", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get("/edit/:id", withAuth, async (req, res) => {
+  try {
+    let postData = await Post.findAll({
+      where: {
+        id: req.params.id,
+      },
+      include: [User, Categories, Comments],
+    });
+
+    let posts = postData.map((data) => data.get({ plain: true }));
+    let cats = await Categories.findAll();
+    let categories = cats.map((cat) => cat.get({ plain: true }));
+    let coms = await Comments.findAll({ include: [User] });
+    let comments = coms.map((com) => com.get({ plain: true }));
+    let userData = await User.findAll();
+    let users = userData.map((user) => user.get({ plain: true }));
+    let current = { idpst: req.session.user_id };
+
+    console.log("Comments123", { ...categories });
+    console.log("post data", posts);
+
+    res.status(200).render("edit", { posts, categories });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.get("/postsbyuser/:id", withAuth, async (req, res) => {
   try {

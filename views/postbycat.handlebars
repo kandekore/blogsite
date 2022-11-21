@@ -24,40 +24,29 @@
       </div> }}
         <div class="col-md-12">
           <div class="card-body">
-            <h2 class="card-title">{{post.title}} </h2>
-            <h3 class="card-title">User: {{user.name}} </h3>
-            <h5 class="card-title">Category: {{category.catname}} </h5>
+            <a href="/posts/{{id}}"><h2 class="card-title">{{title}} </h2></a>
             <p class="card-text">{{content}}</p>
-            <ul class="list-group list-group-flush">
-              {{!-- {{#each comments}}
-              <li class="list-group-item">{{comment}}</li>
-            {{/each}} --}}
+            <div class="meta"><h5 class="card-title left">User:
+                <a href="/postsbyuser/{{user.id}}">{{user.name}}</a>
+              </h5>
+              <h5 class="card-title right">Category:
+                <a href="/postsbycat/{{category.id}}">{{category.catname}}
+                </a></h5>
+              <p class="card-text"><small class="text-muted">Posted:
+                  {{format_time date}}</small></p></div>
+            <div class="comments">{{#if comments.length}}<h3
+                >Comments</h3>{{/if}}
+              <ul class="list-group list-group-flush">
 
-            </ul>
-            <p class="card-text"><small class="text-muted">Date:
-                {{format_time date}}</small></p>
-          </div>
-          <h3>Leave a comment</h3>
-          <form width="100%" class="leavecomment" id="leavecomment">
-            <input
-              class="postid"
-              type="number"
-              width="300px"
-              id="pstid"
-              value="{{id}}"
-            />
-            <textarea
-              class="comments"
-              type="text"
-              cols="40"
-              rows="5"
-              id="comment"
-            ></textarea><br /><button
-              type="submit"
-              class="btn btn-primary"
-            >Post</button></form>
-        </div>
-      </div>
+                {{#each comments}}
+                  <li class="list-group-item">{{comment}}
+                    -
+                    {{user.name}}
+
+                  </li>
+                {{/each}}
+</div></div></div></div>
+         
     </div>{{/each}}
 {{/if}}
 {{! <script src="/js/index.js"></script> }}

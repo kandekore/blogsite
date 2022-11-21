@@ -98,4 +98,22 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.put("editpost/:id", withAuth, async (req, res) => {
+  Post.update(
+    {
+      title: req.body.title,
+      content: req.body.content,
+    },
+    {
+      where: {
+        id: req.params.id,
+      },
+    }
+  )
+    .then((updatedPost) => {
+      res.json(updatedPost);
+    })
+    .catch((err) => res.json(err));
+});
+
 module.exports = router;
