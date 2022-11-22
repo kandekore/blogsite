@@ -38,20 +38,23 @@
               </a></h5>
             <p class="card-text"><small class="text-muted">Posted:
                 {{format_time date}}</small></p></div>
-          <div class="comments">{{#if comments.length}}<h3>Comments</h3>{{/if}}
+          <div class="comments">
+            {{#if comments.length}}<h3>Comments</h3>{{/if}}
             <ul class="list-group list-group-flush">
-
+              {{comment.comment}}
+              -
               {{#each comments}}
                 <li class="list-group-item">{{comment}}
                   -
-                  {{user.name}}
+
+                  {{name}}
 
                 </li>
               {{/each}}
 
-            </ul></div>
+            </ul>
 
-        </div>
+          </div></div>
         {{!-- {{#if logged_in}} --}}
         {{!-- <div class="commentform"><h3>Leave a comment</h3>
 

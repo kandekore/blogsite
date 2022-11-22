@@ -48,11 +48,12 @@
             <div class="comments">{{#if comments.length}}<h3
                 >Comments</h3>{{/if}}
               <ul class="list-group list-group-flush">
-
+                {{comment.comment}}
+                -
                 {{#each comments}}
                   <li class="list-group-item">{{comment}}
                     -
-                    {{user.name}}
+                    {{name}}
 
                   </li>
                 {{/each}}

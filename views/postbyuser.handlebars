@@ -37,8 +37,30 @@
             <p class="card-text"><small class="text-muted">Date:
                 {{format_time date}}</small></p>
           </div>
+          <div class="comments">
+            {{#if comments.length}}<h3>Comments</h3>{{/if}}
+            <ul class="list-group list-group-flush">
+              {{comment.comment}}
+              -
+              {{#each comments}}
+                <li class="list-group-item">{{comment}}
+                  -
+                  {{id}}
+                  {{user.name}}
+
+                </li>
+              {{/each}}
+
+            </ul>
+
+          </div>
           <h3>Leave a comment</h3>
-          <form width="100%" class="leavecomment" id="leavecomment">
+          <form
+            width="100%"
+            class="leavecomment"
+            id="leavecomment"
+            onsubmit="setTimeout(function(){window.location.reload();},10);"
+          >
             <input
               class="postid"
               type="number"
@@ -62,3 +84,4 @@
 {{/if}}
 {{! <script src="/js/index.js"></script> }}
 <script src="/js/profile.js"></script>
+<script src="/js/comment.js"></script>

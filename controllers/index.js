@@ -1,9 +1,10 @@
 const router = require("express").Router();
 const apiRoutes = require("./api");
-router.use("/api", apiRoutes);
 const { User, Post, Categories, Comments } = require("../models");
 const withAuth = require("../utils/auth");
 const { findAll } = require("../models");
+
+router.use("/api", apiRoutes);
 
 router.get("/", async (req, res) => {
   try {
@@ -35,6 +36,37 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+router.get("/comments", withAuth, async (req, res) => {
+  try {
+    // let postData = await Post.findAll({
+    //   include: [User, Categories, Comments],
+    // });
+
+    // let posts = postData.map((data) => data.get({ plain: true }));
+    // let cats = await Categories.findAll();
+    // let categories = cats.map((cat) => cat.get({ plain: true }));
+    let coms = await Comments.findAll({ include: [{ model: User }] });
+    let comments = coms.map((com) => com.get({ plain: true }));
+    // let userData = await User.findAll();
+    // let users = userData.map((user) => user.get({ plain: true }));
+    let current = { idpst: req.session.user_id };
+    console.log(comments);
+    res.render(
+      "comment",
+
+      {
+        // users,
+        // posts,
+        // categories,
+        comments,
+        // current,
+        logged_in: req.session.logged_in,
+      }
+    );
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.get("/posts/:id", withAuth, async (req, res) => {
   try {
@@ -54,8 +86,8 @@ router.get("/posts/:id", withAuth, async (req, res) => {
     let users = userData.map((user) => user.get({ plain: true }));
     let current = { idpst: req.session.user_id };
 
-    console.log("Comments123", ...comments);
-    console.log("post data", posts);
+    console.log("Comments123", comments);
+    // console.log("post data", posts);
 
     res.status(200).render("singlepost", { posts, comments });
   } catch (err) {
@@ -119,7 +151,7 @@ router.get("/postsbyuser/:id", withAuth, async (req, res) => {
     console.log("usr", user);
     console.log("posts", posts);
 
-    res.status(200).render("postbyuser", { posts, user });
+    res.status(200).render("postbyuser", { posts, user, Comments });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -184,6 +216,9 @@ router.get("/profile", withAuth, async (req, res) => {
     let comments = coms.map((com) => com.get({ plain: true }));
     let cats = await Categories.findAll();
     let categories = cats.map((cat) => cat.get({ plain: true }));
+    console.log(posts);
+    // console.log(comments);
+
     res.render("profile", {
       ...user,
       posts,

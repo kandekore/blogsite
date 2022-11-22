@@ -12,24 +12,20 @@ const editPostHandler = async (event) => {
   // const user = document.querySelector("#userid").value.trim();
   const title = document.querySelector("#ptinput").value.trim();
   const content = document.querySelector("#pstcnt").value.trim();
-  const cat_id = document.querySelector("#cat").value.trim();
+  const id = document.querySelector("#pstid").value.trim();
 
-  if (title && content && user_id && cat_id) {
-    const response = await fetch(`/api/editpost/:id`, {
+  if (title && content && user_id && id) {
+    const response = await fetch(`/api/posts/editpost/${id}`, {
       method: "PUT",
-      body: JSON.stringify({ title, content, cat_id }),
+      body: JSON.stringify({ title, content }),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    console.log("r1", response);
-    console.log("r1", req.session.logged_in);
     if (response.ok) {
-      console.log(userData.id);
-      console.log(req.session.logged_in);
       //   res.status(200).json(response);
-      window.location.href = "/";
+      window.location.href = "/profile";
     } else {
       alert("Failed to create post");
     }

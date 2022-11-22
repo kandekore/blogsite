@@ -98,7 +98,9 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("editpost/:id", withAuth, async (req, res) => {
+router.put("/editpost/:id", async (req, res) => {
+  console.log(req.body.title);
+  console.log(req.params.id);
   Post.update(
     {
       title: req.body.title,

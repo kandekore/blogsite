@@ -20,10 +20,10 @@ const newCommentHandler = async (event) => {
       },
     });
 
-    console.log(responseCom);
-    console.log(req.session.logged_in);
+    // console.log(responseCom);
+    // console.log(req.session.logged_in);
     if (responseCom.ok) {
-      window.location.href = "/";
+      // window.location.href = "/";
       // window.location.reload();
     } else {
       alert("Failed to create comment");
