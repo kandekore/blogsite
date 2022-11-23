@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
         users,
         posts,
         categories,
-        // comments,
+        Comments,
         current,
         logged_in: req.session.logged_in,
       }
