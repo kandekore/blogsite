@@ -28,7 +28,7 @@ Categories.hasMany(Post, {
   onDelete: "CASCADE",
 });
 Comments.belongsTo(Post, {
-  foreignKey: "comment_id",
+  foreignKey: "post_id",
   onDelete: "CASCADE",
 });
 Post.hasMany(Comments, {

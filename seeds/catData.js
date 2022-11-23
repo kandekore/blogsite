@@ -2,11 +2,19 @@ const { Categories } = require("../models");
 const catData = [
   {
     id: 1,
-    catname: "Cat Test",
+    catname: "WordPress",
   },
   {
     id: 2,
-    catname: "Cat 2 Test",
+    catname: "Office 365",
+  },
+  {
+    id: 3,
+    catname: "VPNs",
+  },
+  {
+    id: 4,
+    catname: "SEO",
   },
 ];
 

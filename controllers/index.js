@@ -13,10 +13,11 @@ router.get("/", async (req, res) => {
     });
 
     let posts = postData.map((data) => data.get({ plain: true }));
+    console.log("posts", posts);
     let cats = await Categories.findAll();
     let categories = cats.map((cat) => cat.get({ plain: true }));
-    let coms = await Comments.findAll({ include: [User] });
-    let comments = coms.map((com) => com.get({ plain: true }));
+    // let coms = await Comments.findAll({ include: [User] });
+    // let comments = coms.map((com) => com.get({ plain: true }));
     let userData = await User.findAll();
     let users = userData.map((user) => user.get({ plain: true }));
     let current = { idpst: req.session.user_id };
@@ -27,7 +28,7 @@ router.get("/", async (req, res) => {
         users,
         posts,
         categories,
-        comments,
+        // comments,
         current,
         logged_in: req.session.logged_in,
       }
