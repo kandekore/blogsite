@@ -7,7 +7,38 @@
       <div class="card-body">
           <a href="/posts/{{id}}"><h2 class="card-title">{{title}} </h2></a>
           <p class="card-text">{{content}}</p>
-          <div class="meta"><h5 class="card-title left">User:
+           <div class="meta"><h5 class="card-title left">Author:
+              <a href="/postsbyuser/{{user.id}}">{{user.name}}</a>
+            </h5>
+            <h5 class="card-title right">Category:
+              <a href="/postsbycat/{{category.id}}">{{category.catname}}
+              </a></h5>
+          </div>
+          <div class="date">
+            <p class="card-text"><small class="text-muted">Posted:
+                {{format_time date}}</small></p></div>
+          <div class="comments">
+            {{#if comments.length}}<h3>Comments</h3>{{/if}}
+            <ul class="list-group list-group-flush">
+              {{!-- {{comment.comment}}
+              -
+              {{comment.id}} --}}
+              {{#each comments}}
+                <li class="list-group-item"><div
+                    class="commentdiv"
+                  >{{comment}}</div>
+                  <small class="text-muted"><b>User:
+                      <a
+                        href="/postsbyuser/{{user.id}}"
+                      >{{user.name}}</a></b></small>
+                  -
+                  <small class="text-muted">{{format_time date}}</small>
+
+                </li>
+              {{/each}}
+
+            </ul>
+          {{!-- <div class="meta"><h5 class="card-title left">User:
               <a href="/postsbyuser/{{user.id}}">{{user.name}}</a>
             </h5>
             <h5 class="card-title right">Category:<a href="/postsbycat/{{category.id}}"> {{category.catname}} </a></h5>
@@ -26,7 +57,7 @@
 
           </ul>
          
-        </div>
+        </div> --}}
         {{!-- {{#if logged_in}} --}}
         <h3>Leave a comment</h3>
 

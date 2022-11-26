@@ -9,11 +9,12 @@ router.use("/api", apiRoutes);
 router.get("/", async (req, res) => {
   try {
     let postData = await Post.findAll({
-      include: [User, Categories, Comments],
+      include: [User, Categories, { model: Comments, include: [User] }],
     });
 
     let posts = postData.map((data) => data.get({ plain: true }));
     console.log("posts", posts);
+    console.log("================", posts.comments);
     let cats = await Categories.findAll();
     let categories = cats.map((cat) => cat.get({ plain: true }));
     // let coms = await Comments.findAll({ include: [User] });
@@ -28,7 +29,7 @@ router.get("/", async (req, res) => {
         users,
         posts,
         categories,
-        Comments,
+
         current,
         logged_in: req.session.logged_in,
       }
@@ -75,7 +76,7 @@ router.get("/posts/:id", withAuth, async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: [User, Categories, Comments],
+      include: [User, Categories, { model: Comments, include: [User] }],
     });
 
     let posts = postData.map((data) => data.get({ plain: true }));
@@ -129,7 +130,7 @@ router.get("/postsbyuser/:id", withAuth, async (req, res) => {
         where: {
           user_id: req.params.id,
         },
-        include: [Comments, User, Categories],
+        include: [User, Categories, { model: Comments, include: [User] }],
       },
       {
         allowedProtoMethods: {
@@ -165,7 +166,7 @@ router.get("/postsbycat/:id", withAuth, async (req, res) => {
         where: {
           cat_id: req.params.id,
         },
-        include: [Comments, User, Categories],
+        include: [User, Categories, { model: Comments, include: [User] }],
       },
       {
         allowedProtoMethods: {
@@ -207,7 +208,7 @@ router.get("/profile", withAuth, async (req, res) => {
       where: {
         user_id: req.session.user_id,
       },
-      include: [Comments, User, Categories],
+      include: [User, Categories, { model: Comments, include: [User] }],
     });
     let posts = postData.map((data) => data.get({ plain: true }));
 

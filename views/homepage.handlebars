@@ -30,24 +30,32 @@
         <div class="card-body">
           <a href="/posts/{{id}}"><h2 class="card-title">{{title}} </h2></a>
           <p class="card-text">{{content}}</p>
-          <div class="meta"><h5 class="card-title left">User:
+          <div class="meta"><h5 class="card-title left">Author:
               <a href="/postsbyuser/{{user.id}}">{{user.name}}</a>
             </h5>
             <h5 class="card-title right">Category:
               <a href="/postsbycat/{{category.id}}">{{category.catname}}
               </a></h5>
+          </div>
+          <div class="date">
             <p class="card-text"><small class="text-muted">Posted:
                 {{format_time date}}</small></p></div>
           <div class="comments">
             {{#if comments.length}}<h3>Comments</h3>{{/if}}
             <ul class="list-group list-group-flush">
-              {{comment.comment}}
+              {{!-- {{comment.comment}}
               -
+              {{comment.id}} --}}
               {{#each comments}}
-                <li class="list-group-item">{{comment}}
+                <li class="list-group-item"><div
+                    class="commentdiv"
+                  >{{comment}}</div>
+                  <small class="text-muted"><b>User:
+                      <a
+                        href="/postsbyuser/{{user.id}}"
+                      >{{user.name}}</a></b></small>
                   -
-
-                  {{name}}
+                  <small class="text-muted">{{format_time date}}</small>
 
                 </li>
               {{/each}}
@@ -55,37 +63,6 @@
             </ul>
 
           </div></div>
-        {{!-- {{#if logged_in}} --}}
-        {{!-- <div class="commentform"><h3>Leave a comment</h3>
-
-          <form
-            width="100%"
-            class="leavecomment"
-            id="leavecomment"
-            onsubmit="setTimeout(function(){window.location.reload();},10);"
-          >
-
-            <input
-              class="postid"
-              type="number"
-              width="300px"
-              id="pstid"
-              value="{{id}}"
-            />
-            <textarea
-              class="comments"
-              type="text"
-              cols="40"
-              rows="5"
-              id="comment"
-            ></textarea><br /><button
-              type="submit"
-              class="btn btn-primary"
-            >Comment</button></form>
-          {{!-- {{else}}
-          <h3>Please <a href="/login">sign in</a> to leave a comment</h3>{{/if}} --}}
-        {{! </div> }}
-
       </div>
     </div></div>{{/each}}
 

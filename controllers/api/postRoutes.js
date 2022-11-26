@@ -44,7 +44,7 @@ router.post("/", withAuth, async (req, res) => {
 router.get("/posts", async (req, res) => {
   try {
     let postData = await Post.findAll({
-      include: [Comments, User, Categories],
+      include: [User, Categories, { model: Comments, include: [User] }],
     });
     let posts = postData.map((data) => data.get({ plain: true }));
     // let commentData = await Comments.findOne(where);
@@ -79,7 +79,7 @@ router.get("/:id", async (req, res) => {
           id: req.params.id,
         },
 
-        include: [Comments],
+        include: [User, Categories, { model: Comments, include: [User] }],
       },
       {
         allowedProtoMethods: {

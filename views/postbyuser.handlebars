@@ -1,22 +1,7 @@
-{{#each user}}<h1>Posts by {{name}}</h1>{{/each}}
-{{!-- {{#each posts}}
-  <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="..." />
-    <div class="card-body">
-
-      <h2 class="card-title">{{title}} </h2>
-      <h3  class="card-title">User: {{user.name}} </h3>
-<h5  class="card-title">Category: {{category.name}} </h5>
-      <p class="card-text">{{content}}</p>
-      <p class="card-text">Date: {{date}}</p>{{#each comments}}
-      <p class="card-text">{{comment}}123{{/each}}</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-{{/each}} --}}
+<div class="oner">{{#each user}}<h1>Posts by {{name}}</h1>{{/each}}</div>
 
 {{#if posts.length}}
-  {{#each posts as |post|}}
+  {{#each posts}}
     <div class="card mb-3" style="width: 80%;">
       <div class="row g-0">
         {{! <div class="col-md-4">
@@ -24,63 +9,43 @@
       </div> }}
         <div class="col-md-12">
           <div class="card-body">
-            <h2 class="card-title">{{post.title}} </h2>
-            <h3 class="card-title">User: {{user.name}} </h3>
-            <h5 class="card-title">Category: {{category.catname}} </h5>
+            <a href="/posts/{{id}}"><h2 class="card-title">{{title}} </h2></a>
             <p class="card-text">{{content}}</p>
-            <ul class="list-group list-group-flush">
-              {{!-- {{#each comments}}
-              <li class="list-group-item">{{comment}}</li>
-            {{/each}} --}}
-
-            </ul>
-            <p class="card-text"><small class="text-muted">Date:
-                {{format_time date}}</small></p>
-          </div>
-          <div class="comments">
-            {{#if comments.length}}<h3>Comments</h3>{{/if}}
-            <ul class="list-group list-group-flush">
-              {{comment.comment}}
+            <div class="meta"><h5 class="card-title left">Author:
+                <a href="/postsbyuser/{{user.id}}">{{user.name}}</a>
+              </h5>
+              <h5 class="card-title right">Category:
+                <a href="/postsbycat/{{category.id}}">{{category.catname}}
+                </a></h5>
+            </div>
+            <div class="date">
+              <p class="card-text"><small class="text-muted">Posted:
+                  {{format_time date}}</small></p></div>
+            <div class="comments">
+              {{#if comments.length}}<h3>Comments</h3>{{/if}}
+              <ul class="list-group list-group-flush">
+                {{!-- {{comment.comment}}
               -
-              {{#each comments}}
-                <li class="list-group-item">{{comment}}
-                  -
-                  {{id}}
-                  {{user.name}}
+              {{comment.id}} --}}
+                {{#each comments}}
+                  <li class="list-group-item"><div
+                      class="commentdiv"
+                    >{{comment}}</div>
+                    <small class="text-muted"><b>User:
+                        <a
+                          href="/postsbyuser/{{user.id}}"
+                        >{{user.name}}</a></b></small>
+                    -
+                    <small class="text-muted">{{format_time date}}</small>
 
-                </li>
-              {{/each}}
+                  </li>
+                {{/each}}
 
-            </ul>
+              </ul>
 
-          </div>
-          <h3>Leave a comment</h3>
-          <form
-            width="100%"
-            class="leavecomment"
-            id="leavecomment"
-            onsubmit="setTimeout(function(){window.location.reload();},10);"
-          >
-            <input
-              class="postid"
-              type="number"
-              width="300px"
-              id="pstid"
-              value="{{id}}"
-            />
-            <textarea
-              class="comments"
-              type="text"
-              cols="40"
-              rows="5"
-              id="comment"
-            ></textarea><br /><button
-              type="submit"
-              class="btn btn-primary"
-            >Post</button></form>
+            </div></div>
         </div>
-      </div>
-    </div>{{/each}}
+      </div></div>{{/each}}
 {{/if}}
 {{! <script src="/js/index.js"></script> }}
 <script src="/js/profile.js"></script>
