@@ -184,12 +184,19 @@ router.get("/postsbycat/:id", withAuth, async (req, res) => {
         id: req.params.id,
       },
     });
+
+    let catData = await Categories.findAll({
+      where: {
+        id: req.params.id,
+      },
+    });
+    let category = catData.map((cats) => cats.get({ plain: true }));
     let posts = postData.map((post) => post.get({ plain: true }));
     let user = userData.map((data) => data.get({ plain: true }));
-    console.log("usr", user);
+    console.log("usr", { category });
     console.log("posts", posts);
     // res.render("post", postData);
-    res.status(200).render("postbycat", { posts, user });
+    res.status(200).render("postbycat", { posts, user, category });
   } catch (err) {
     res.status(500).json(err);
   }
