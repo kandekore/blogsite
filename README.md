@@ -22,7 +22,7 @@ A CMS-style blog site similar to a Wordpress site, where developers can publish 
 
 ## Usage
 
-To see the deployed application please follow [this link.](https://kandekoretechblog.herokuapp.com/)
+To see the deployed application please follow [this link.](https://techblogknd.herokuapp.com/)
 
 User signs up and can post blogs or respond to ther blogs, blogs can be updated after submission, categorised, viewed by user and by category.
 
