@@ -1,53 +1,88 @@
-![badmath](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)
+# Model-View-Controller (MVC): Tech Blog
 
-# Model-View-Controller (MVC) : Tech Blog
+A comprehensive and user-friendly documentation for the Tech Blog application, designed using the Model-View-Controller (MVC) architecture.
 
 ## Table of Contents
 
-- [Description](#Description)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
 - [Usage](#usage)
-- [Installation](#installation)
 - [Testing](#testing)
-- [Contributors](#Contributors)
-- [Questions](#Questions)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-## Description
+## Introduction
 
-A CMS-style blog site similar to a Wordpress site, where developers can publish their blog posts and comment on other developers’ posts as well.
+The Tech Blog is a CMS-style platform tailored for developers to publish and discuss their insights. The site, inspired by Wordpress, offers a space for knowledge sharing and networking.
 
-- The Motivation for building this application was to give a place for developers to share information and discuss topics
-- The application was built to demonstrate my ubderstanding of MVC
-- It solves the problem of having a discussion platform
-- Through the process of building this application I learned how to create a relationship between frontend inputs and database entries
+### Motivation
+- To create a collaborative space for developers.
+- Demonstrate an understanding of MVC architecture.
+- Enable discussions through a user-friendly interface.
+
+### Learning Outcomes
+- Gained insights into connecting frontend interfaces with backend databases.
+- Enhanced understanding of MVC paradigms.
+
+## Features
+
+- **User Registration**: Secure sign-up and authentication system.
+- **Blog Posting**: Users can write, publish, and manage blog posts.
+- **Comment System**: Enables users to comment on posts.
+- **Category Management**: Organize posts into various categories.
+- **User Profiles**: View and manage personal profiles and posts.
+
+## Technology Stack
+
+- **Frontend**: Handlebars.js, HTML, CSS
+- **Backend**: Node.js, Express.js
+- **Database**: Sequelize, MySQL
+- **Session Management**: express-session
+- **Authentication**: Custom middleware
+- **Other Libraries**: date-and-time
+
+## Getting Started
+
+### Prerequisites
+- Node.js
+- MySQL
+
+### Installation
+1. Clone the repository.
+2. Navigate to the app folder.
+3. Run `npm install` to install dependencies.
+4. Start the server using `nodemon`.
 
 ## Usage
 
-To see the deployed application please follow [this link.](https://techblogknd.herokuapp.com/)
-
-User signs up and can post blogs or respond to ther blogs, blogs can be updated after submission, categorised, viewed by user and by category.
-
-## License
-
-This application is covered under the Apache License 2.0 licence
-
-## Installation
-
-Open app folder and run npm install
-
-run nodemon
+Access the deployed application at [Tech Blog](https://techblogknd.herokuapp.com/). Register to start posting, commenting, and interacting with other developers' content.
 
 ## Testing
 
-through postman
+- Test API routes using Postman.
+- Ensure session management and authentication work correctly.
 
-## Contributors
+## Contributing
 
-[Darren Kandekore](https://github.com/kandekore)
+Contributions are welcome. Please read the contribution guidelines.
 
-## Questions
+### Main Contributor
+- [Darren Kandekore](https://github.com/kandekore)
 
-Please contact me if you have any questions
+## License
 
-[Kandekore](https://github.com/Kandekore)
+This project is licensed under the Apache License 2.0.
 
-[darren@kandekore.net](mailto:darren@kandekore.net)
+## Contact
+
+For questions or contributions, please contact:
+
+- GitHub: [Kandekore](https://github.com/Kandekore)
+- Email: [darren@kandekore.net](mailto:darren@kandekore.net)
+
