@@ -24,7 +24,7 @@ The Tech Blog is a CMS-style platform tailored for developers to publish and dis
 
 ## Screenshot
 
-![Screenshot](https://darrenk.uk/wp-content/uploads/2020/11/Snag_71f6176.png#1520)
+![Screenshot](https://darrenk.uk/wp-content/uploads/2020/11/Snag_71f6176.png)
 
 ### Motivation
 - To create a collaborative space for developers.
