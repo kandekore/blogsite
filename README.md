@@ -5,6 +5,7 @@ A comprehensive and user-friendly documentation for the Tech Blog application, d
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Screenshot](#Screenshot)
 - [Features](#features)
 - [Technology Stack](#technology-stack)
 - [Getting Started](#getting-started)
@@ -19,7 +20,11 @@ A comprehensive and user-friendly documentation for the Tech Blog application, d
 
 ## Introduction
 
-The Tech Blog is a CMS-style platform tailored for developers to publish and discuss their insights. The site, inspired by Wordpress, offers a space for knowledge sharing and networking.
+The Tech Blog is a CMS-style platform tailored for developers to publish and discuss their insights. The site, inspired by WordPress, offers a space for knowledge sharing and networking.
+
+## Screenshot
+
+![Screenshot](https://darrenk.uk/wp-content/uploads/2020/11/Snag_71f6176.png#1520)
 
 ### Motivation
 - To create a collaborative space for developers.
